@@ -8,7 +8,7 @@
 <meta name="description" content="Domowe pobranie krwi i kroplówki witaminowe w Poznaniu i okolicy do 15 km. Dojazd w Poznaniu 50 zł, badania w laboratorium DIAGNOSTYKA, wyniki online. Punkt pobrań w Nekli, Rynek 20. Tel. 720 994 839.">
 <meta name="theme-color" content="#14206E">
 <link rel="icon" href="img/logo-znak.svg" type="image/svg+xml">
-<link rel="preload" as="image" href="img/hero-1024.webp" imagesrcset="img/hero-640.webp 640w, img/hero-1024.webp 1024w, img/hero-1600.webp 1600w, img/hero-1920.webp 1920w" imagesizes="(max-width:899px) 180vw, 100vw" fetchpriority="high">
+<link rel="preload" as="image" href="img/hero-1024.webp" imagesrcset="img/hero-640.webp 640w, img/hero-1024.webp 1024w, img/hero-1200.webp 1200w, img/hero-1600.webp 1600w, img/hero-1920.webp 1920w" imagesizes="(max-width:899px) 160vw, (min-width:1800px) 64vw, 70vw" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="fonts/sourcesans3-latin.woff2" crossorigin>
 <style>
 @font-face{font-family:"Source Sans 3";src:url(fonts/sourcesans3-latin.woff2) format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2212}
@@ -184,7 +184,7 @@ section{padding:clamp(64px,8vw,112px) 0}
 .duzy-tel{display:inline-block;font-size:clamp(34px,5vw,52px);font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-.02em;line-height:1.1;margin:18px 0 6px}
 .duzy-tel:hover{color:var(--niebieski)}
 .kontakt-dane p{font-size:17px;margin:0 0 8px}
-.kontakt-dane a{font-weight:600}
+.kontakt-dane a{font-weight:600;color:#00598F}
 .social{display:flex;gap:18px;margin-top:18px}
 form{display:grid;gap:14px;background:var(--tlo2);padding:clamp(20px,3vw,36px);border-radius:8px}
 label{display:grid;gap:6px;font-weight:600;color:var(--ink);font-size:16px}
@@ -200,7 +200,7 @@ textarea{min-height:110px;resize:vertical}
 /* stopka */
 footer{background:#10183F;color:#AEB7D0;padding:48px 0 28px;font-size:15.5px}
 footer .kol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px}
-footer h4{color:#fff;font-size:16px;margin:0 0 10px}
+footer h3.fh{color:#fff;font-size:16px;margin:0 0 10px}
 footer a{color:#D9E0F2;text-decoration:none}
 footer a:hover{color:#fff}
 footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
@@ -273,7 +273,7 @@ footer .pierwsza{grid-column:1/-1}
 <main>
 <section class="hero" style="padding:0" aria-label="Vital Mobile">
  <div class="hero-foto">
-  <img src="img/hero-1024.webp" srcset="img/hero-640.webp 640w, img/hero-1024.webp 1024w, img/hero-1600.webp 1600w, img/hero-1920.webp 1920w" sizes="(max-width:899px) 180vw, 100vw" width="1920" height="1280" alt="Wizyta domowa: personel medyczny u pacjenta" fetchpriority="high">
+  <img src="img/hero-1024.webp" srcset="img/hero-640.webp 640w, img/hero-1024.webp 1024w, img/hero-1200.webp 1200w, img/hero-1600.webp 1600w, img/hero-1920.webp 1920w" sizes="(max-width:899px) 160vw, (min-width:1800px) 64vw, 70vw" width="1920" height="1280" alt="Wizyta domowa: personel medyczny u pacjenta" fetchpriority="high">
  </div>
  <div class="hero-in">
   <h1>Pobranie krwi i kroplówki witaminowe u Ciebie w domu</h1>
@@ -400,7 +400,7 @@ footer .pierwsza{grid-column:1/-1}
     <div><h3>Wizyty domowe</h3><dl><dt>Pon.-pt.</dt><dd>7:00-18:00</dd><dt>Sobota</dt><dd>7:00-14:00</dd></dl></div>
    </div>
   </div>
-  <div class="mapa" id="mapa" data-src="https://maps.google.com/maps?q=Rynek%2020,%2062-330%20Nekla&amp;z=15&amp;output=embed" aria-label="Mapa: Rynek 20, Nekla"></div>
+  <div class="mapa" id="mapa" role="region" data-src="https://maps.google.com/maps?q=Rynek%2020,%2062-330%20Nekla&amp;z=15&amp;output=embed" aria-label="Mapa: Rynek 20, Nekla"></div>
  </div>
 </section>
 
@@ -452,9 +452,9 @@ footer .pierwsza{grid-column:1/-1}
     <a class="logo" href="#" aria-label="Vital Mobile"><svg aria-hidden="true"><use href="#v" fill="url(#gj)"/></svg><span><b>Vital</b> mobile</span></a>
     <p>Pobieranie krwi i kroplówki witaminowe w domu pacjenta. Poznań, Środa Wielkopolska, Nekla.</p>
    </div>
-   <div><h4>Usługi</h4><ul><li><a href="#uslugi">Pobranie krwi</a></li><li><a href="#kroplowki">Kroplówki</a></li><li><a href="#cennik">Cennik</a></li><li><a href="#cennik-firmy">Dla firm</a></li></ul></div>
-   <div><h4>Kontakt</h4><ul><li><a href="tel:+48720994839">720 994 839</a></li><li><a href="mailto:biuro@vitalmobile.pl">biuro@vitalmobile.pl</a></li><li><a href="#punkt">Rynek 20, Nekla</a></li></ul></div>
-   <div><h4>Firma</h4><p>VITAL MOBILE Piotr Jaskuła, Poznań</p><p>NIP 786-172-12-94<br>REGON 384416800</p></div>
+   <div><h3 class="fh">Usługi</h3><ul><li><a href="#uslugi">Pobranie krwi</a></li><li><a href="#kroplowki">Kroplówki</a></li><li><a href="#cennik">Cennik</a></li><li><a href="#cennik-firmy">Dla firm</a></li></ul></div>
+   <div><h3 class="fh">Kontakt</h3><ul><li><a href="tel:+48720994839">720 994 839</a></li><li><a href="mailto:biuro@vitalmobile.pl">biuro@vitalmobile.pl</a></li><li><a href="#punkt">Rynek 20, Nekla</a></li></ul></div>
+   <div><h3 class="fh">Firma</h3><p>VITAL MOBILE Piotr Jaskuła, Poznań</p><p>NIP 786-172-12-94<br>REGON 384416800</p></div>
   </div>
   <div class="dol">
    <span>&copy; <span id="rok">2026</span> Vital Mobile &middot; <a href="#">Polityka prywatności</a> &middot; <a href="#">Regulamin</a></span>
