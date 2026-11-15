@@ -13,7 +13,8 @@ function akt(){var y=scrollY+innerHeight*.35,i=0;sekcje.forEach(function(s,k){if
 addEventListener('scroll',akt,{passive:true});
 // pasek mobilny po przewinięciu za hero
 var mob=d.getElementById('mob'),cta=d.querySelector('.hero .cta');
-if('IntersectionObserver' in window){new IntersectionObserver(function(e){var r=e[0];mob.classList.toggle('widac',!r.isIntersecting&&r.boundingClientRect.top<0)}).observe(cta)}
+var cks=d.getElementById('cookies'),ckOk=false;try{ckOk=!!localStorage.getItem('vm_ck')}catch(e){}
+if('IntersectionObserver' in window){new IntersectionObserver(function(e){var r=e[0],za=!r.isIntersecting&&r.boundingClientRect.top<0;mob.classList.toggle('widac',za);if(za&&!ckOk)cks.hidden=false}).observe(cta)}
 // strzałki torów
 d.querySelectorAll('.przewin').forEach(function(p){var t=d.getElementById(p.dataset.tor),b=p.querySelectorAll('button');
  function krok(){var c=t.firstElementChild;return c?c.getBoundingClientRect().width+14:300}
@@ -44,7 +45,7 @@ var m=d.getElementById('mapa');
 function laduj(){if(m.dataset.ok)return;m.dataset.ok=1;var f=d.createElement('iframe');f.src=m.dataset.src.replace(/&amp;/g,'&');f.title='Mapa: Rynek 20, Nekla';f.loading='lazy';f.referrerPolicy='no-referrer-when-downgrade';m.appendChild(f)}
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){laduj();io.disconnect()}},{rootMargin:'300px'});io.observe(m)}else laduj();
 // cookies
-var ck=d.getElementById('ck');ck.addEventListener('click',function(){d.getElementById('cookies').hidden=true;try{localStorage.setItem('vm_ck','1')}catch(e){}});
+var ck=d.getElementById('ck');ck.addEventListener('click',function(){d.getElementById('cookies').hidden=true;ckOk=true;try{localStorage.setItem('vm_ck','1')}catch(e){}});
 // formularz pokazowy
 d.getElementById('form').addEventListener('submit',function(e){e.preventDefault();d.getElementById('info-form').textContent='To podgląd strony, formularz niczego nie wysyła. Na gotowej stronie zgłoszenie trafi na biuro@vitalmobile.pl.'});
 })();

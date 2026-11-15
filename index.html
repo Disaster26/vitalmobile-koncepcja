@@ -226,6 +226,7 @@ footer .pierwsza{grid-column:1/-1}
 /* cookies */
 .cookies{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;max-width:520px;background:#fff;color:var(--tekst);border:1px solid var(--linia);border-radius:8px;box-shadow:0 8px 28px rgba(16,24,63,.16);padding:12px 14px;display:flex;gap:12px;align-items:center;font-size:14px;line-height:1.4}
 .cookies[hidden]{display:none}
+@media (max-width:999px){.cookies{bottom:calc(76px + env(safe-area-inset-bottom))}}
 .cookies button{flex:none;min-height:40px;padding:0 16px;font-size:15px}
 .podglad{background:#FFF;border-top:1px solid var(--linia);text-align:center;font-size:13.5px;color:var(--blek);padding:10px var(--g)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
@@ -298,7 +299,7 @@ footer .pierwsza{grid-column:1/-1}
     <div class="cena"><b>50 zł</b> <small>dojazd w Poznaniu + badania wg cennika</small></div></div>
    </article>
    <article class="usl">
-    <figure data-lb="img/kroplowka-1000.webp" data-opis="Kroplówka witaminowa"><img src="img/kroplowka-600.webp" srcset="img/kroplowka-600.webp 600w, img/kroplowka-1000.webp 1000w" sizes="(max-width:899px) 84vw, 400px" width="600" height="831" alt="Wenflon i kroplówka witaminowa" loading="lazy" style="object-position:50% 72%"></figure>
+    <figure data-lb="img/kroplowka-1000.webp" data-opis="Kroplówka witaminowa"><img src="img/kroplowka-600.webp" srcset="img/kroplowka-600.webp 600w, img/kroplowka-1000.webp 1000w" sizes="(max-width:899px) 84vw, 400px" width="600" height="400" alt="Wenflon i kroplówka witaminowa" loading="lazy"></figure>
     <div class="tr"><h3>Kroplówki witaminowe</h3><p>Podaje ratownik medyczny. Najpierw krótki wywiad i dobór zestawu, sam wlew trwa około 30 minut, a potem od razu możesz wrócić do zajęć.</p>
     <div class="cena"><b>od 250 zł</b> <small>gotowe zestawy</small></div></div>
    </article>
@@ -466,7 +467,6 @@ footer .pierwsza{grid-column:1/-1}
 
 <div class="mob" id="mob"><a class="btn tel" href="tel:+48720994839">Zadzwoń</a><a class="btn" href="#kontakt">Umów wizytę</a></div>
 <div class="cookies" id="cookies" hidden><span>Używamy plików cookies do wyświetlenia mapy Google. <a href="#">Polityka prywatności</a></span><button class="btn" type="button" id="ck">OK</button></div>
-<script>try{if(!localStorage.getItem('vm_ck'))document.getElementById('cookies').hidden=false}catch(e){document.getElementById('cookies').hidden=false}</script>
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Powiększone zdjęcie"><img alt=""><button class="x" type="button" aria-label="Zamknij">&times;</button><button class="l" type="button" aria-label="Poprzednie">&#8249;</button><button class="p" type="button" aria-label="Następne">&#8250;</button><div class="lic"></div></div>
 <script src="app.js" defer></script>
 </body>
