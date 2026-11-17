@@ -1,51 +1,36 @@
 (function(){
-var d=document;
-d.getElementById('rok').textContent=new Date().getFullYear();
-// menu mobilne
-var ham=d.querySelector('.ham'),panel=d.getElementById('panel');
-function zamknij(){panel.classList.remove('otw');ham.setAttribute('aria-expanded','false');ham.setAttribute('aria-label','Otwórz menu');d.body.style.overflow=''}
-ham.addEventListener('click',function(){var o=panel.classList.toggle('otw');ham.setAttribute('aria-expanded',o);ham.setAttribute('aria-label',o?'Zamknij menu':'Otwórz menu');d.body.style.overflow=o?'hidden':''});
-panel.querySelectorAll('a').forEach(function(a){a.addEventListener('click',zamknij)});
-// aktywna pozycja menu
-var linki=[].slice.call(d.querySelectorAll('nav.menu a'));
-var sekcje=linki.map(function(a){var h=a.getAttribute('href');return h.length>1?d.querySelector(h):d.querySelector('.hero')});
-function akt(){var y=scrollY+innerHeight*.35,i=0;sekcje.forEach(function(s,k){if(s&&s.getBoundingClientRect().top+scrollY<=y)i=k});linki.forEach(function(a,k){a.classList.toggle('akt',k===i);if(k===i)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')})}
-addEventListener('scroll',akt,{passive:true});
-// pasek mobilny po przewinięciu za hero
-var mob=d.getElementById('mob'),cta=d.querySelector('.hero .cta');
-var cks=d.getElementById('cookies'),ckOk=false;try{ckOk=!!localStorage.getItem('vm_ck')}catch(e){}
-if('IntersectionObserver' in window){new IntersectionObserver(function(e){var r=e[0],za=!r.isIntersecting&&r.boundingClientRect.top<0;mob.classList.toggle('widac',za);if(za&&!ckOk)cks.hidden=false}).observe(cta)}
-// strzałki torów
-d.querySelectorAll('.przewin').forEach(function(p){var t=d.getElementById(p.dataset.tor),b=p.querySelectorAll('button');
- function krok(){var c=t.firstElementChild;return c?c.getBoundingClientRect().width+14:300}
- b[0].addEventListener('click',function(){t.scrollBy({left:-krok(),behavior:'smooth'})});
- b[1].addEventListener('click',function(){t.scrollBy({left:krok(),behavior:'smooth'})});
- // przeciąganie myszą
- var x0=0,s0=0,ciag=false,ruch=false;
- t.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;ciag=true;ruch=false;x0=e.clientX;s0=t.scrollLeft;t.style.scrollSnapType='none'});
- addEventListener('pointermove',function(e){if(!ciag)return;var dx=e.clientX-x0;if(Math.abs(dx)>5)ruch=true;t.scrollLeft=s0-dx});
- addEventListener('pointerup',function(){if(!ciag)return;ciag=false;t.style.scrollSnapType='';});
- t.addEventListener('click',function(e){if(ruch){e.preventDefault();e.stopPropagation();ruch=false}},true);
- t.addEventListener('dragstart',function(e){e.preventDefault()});
-});
-// lightbox
-var fig=[].slice.call(d.querySelectorAll('[data-lb]')),lb=d.getElementById('lb'),li=lb.querySelector('img'),lic=lb.querySelector('.lic'),n=0;
-function pokaz(i){n=(i+fig.length)%fig.length;li.src=fig[n].dataset.lb;li.alt=fig[n].dataset.opis||'';lic.textContent=(fig[n].dataset.opis||'')+'  '+(n+1)+' / '+fig.length}
-fig.forEach(function(f,i){f.setAttribute('tabindex','0');f.setAttribute('role','button');f.addEventListener('click',function(){pokaz(i);lb.classList.add('otw');lb.querySelector('.x').focus()});f.addEventListener('keydown',function(e){if(e.key==='Enter'){f.click()}})});
-function zam(){lb.classList.remove('otw');li.removeAttribute('src')}
-lb.querySelector('.x').addEventListener('click',zam);
-lb.querySelector('.l').addEventListener('click',function(){pokaz(n-1)});
-lb.querySelector('.p').addEventListener('click',function(){pokaz(n+1)});
-lb.addEventListener('click',function(e){if(e.target===lb)zam()});
-d.addEventListener('keydown',function(e){if(!lb.classList.contains('otw'))return;if(e.key==='Escape')zam();if(e.key==='ArrowLeft')pokaz(n-1);if(e.key==='ArrowRight')pokaz(n+1)});
-var tx=0;lb.addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
-lb.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)pokaz(dx<0?n+1:n-1)});
-// mapa przy przewinięciu
-var m=d.getElementById('mapa');
-function laduj(){if(m.dataset.ok)return;m.dataset.ok=1;var f=d.createElement('iframe');f.src=m.dataset.src.replace(/&amp;/g,'&');f.title='Mapa: Rynek 20, Nekla';f.loading='lazy';f.referrerPolicy='no-referrer-when-downgrade';m.appendChild(f)}
-if('IntersectionObserver' in window){var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){laduj();io.disconnect()}},{rootMargin:'300px'});io.observe(m)}else laduj();
-// cookies
-var ck=d.getElementById('ck');ck.addEventListener('click',function(){d.getElementById('cookies').hidden=true;ckOk=true;try{localStorage.setItem('vm_ck','1')}catch(e){}});
-// formularz pokazowy
-d.getElementById('form').addEventListener('submit',function(e){e.preventDefault();d.getElementById('info-form').textContent='To podgląd strony, formularz niczego nie wysyła. Na gotowej stronie zgłoszenie trafi na biuro@vitalmobile.pl.'});
+function init(){
+  var top=document.getElementById('top'),bg=document.getElementById('burger');
+  function zamknij(){top.classList.remove('open');bg.setAttribute('aria-expanded','false');bg.setAttribute('aria-label','Otwórz menu')}
+  bg.addEventListener('click',function(){var o=top.classList.toggle('open');bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?'Zamknij menu':'Otwórz menu')});
+  document.querySelectorAll('.menu a').forEach(function(a){a.addEventListener('click',zamknij)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')zamknij()});
+  var links=[].slice.call(document.querySelectorAll('.menu a[href^="#"]:not(.btn)'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
+    ['start','uslugi','badania','kroplowki','wizyta','dojazd','firmy','pytania','kontakt'].forEach(function(id){var t=document.getElementById(id);if(t)io.observe(t)});
+  }
+  document.querySelectorAll('[data-tor]').forEach(function(tor){
+    var down=false,sx=0,sl=0,moved=false;
+    function step(){var k=tor.children[0];return k?k.getBoundingClientRect().width+parseFloat(getComputedStyle(tor).columnGap||20):300}
+    tor.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||tor.scrollWidth<=tor.clientWidth+2)return;down=true;moved=false;sx=e.clientX;sl=tor.scrollLeft});
+    addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-sx;if(Math.abs(dx)>4){moved=true;tor.classList.add('drag')}tor.scrollLeft=sl-dx});
+    addEventListener('pointerup',function(){if(!down)return;down=false;tor.classList.remove('drag');if(moved){var w=step();tor.scrollTo({left:Math.round(tor.scrollLeft/w)*w,behavior:'smooth'})}});
+    tor.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+    tor.addEventListener('dragstart',function(e){e.preventDefault()});
+    var nav=document.querySelector('[data-nav="'+tor.id+'"]');
+    function upd(){if(nav)nav.style.visibility=tor.scrollWidth>tor.clientWidth+2?'visible':'hidden'}
+    if(nav)nav.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){tor.scrollBy({left:step()*(+b.dataset.k),behavior:'smooth'})})});
+    requestAnimationFrame(upd);addEventListener('resize',upd);
+  });
+  var f=document.getElementById('form'),msg=document.getElementById('msg');
+  f.addEventListener('submit',function(e){e.preventDefault();var ok=true;[].forEach.call(f.querySelectorAll('[required]'),function(i){var v=i.type==='checkbox'?(i.checked?'1':''):i.value.trim();var bad=!v;i.setAttribute('aria-invalid',bad);if(bad&&ok){ok=false;i.focus()}});if(!ok)return;msg.hidden=false;f.reset();msg.scrollIntoView({block:'nearest',behavior:'smooth'})});
+  var mapa=document.getElementById('mapa');
+  var pm=document.getElementById('pokaz-mape');function laduj(){if(mapa.querySelector('iframe'))return;var i=document.createElement('iframe');i.src=mapa.dataset.src;i.title='Mapa: punkt pobrań Vital Mobile, Rynek 20, Nekla';i.loading='lazy';i.referrerPolicy='no-referrer-when-downgrade';mapa.appendChild(i);pm.hidden=true}pm.addEventListener('click',laduj);if('IntersectionObserver' in window){var mio=new IntersectionObserver(function(es){if(es[0].isIntersecting){laduj();mio.disconnect()}},{rootMargin:'300px 0px'});mio.observe(mapa)}
+  var lz=[].slice.call(document.querySelectorAll('img[data-src]'));
+  function wczytaj(i){if(!i.dataset.src)return;if(i.dataset.srcset)i.srcset=i.dataset.srcset;i.src=i.dataset.src;i.removeAttribute('data-src')}
+  if('IntersectionObserver' in window){var lio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){wczytaj(e.target);lio.unobserve(e.target)}})},{rootMargin:'400px 200px'});lz.forEach(function(i){lio.observe(i)})}else lz.forEach(wczytaj);
+  var r=document.getElementById('rok');if(r)r.textContent=new Date().getFullYear();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
